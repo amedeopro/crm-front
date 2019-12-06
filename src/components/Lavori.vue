@@ -6,16 +6,19 @@
     <el-table-column
             prop="work_type"
             label="Tipo di Lavoro"
+            sortable
             >
     </el-table-column>
     <el-table-column
             prop="dead_line"
             label="Terminare entro il"
+            sortable
             >
     </el-table-column>
     <el-table-column
             prop="finished"
             label="E' stato terminato ?"
+            sortable
             >
     </el-table-column>
     <el-table-column
