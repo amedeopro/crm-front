@@ -3,6 +3,12 @@
   <el-table
           :data="lavori"
           style="width: 100%">
+      <el-table-column
+              prop="company"
+              label="Cliente"
+              sortable
+      >
+      </el-table-column>
     <el-table-column
             prop="work_type"
             label="Tipo di Lavoro"
