@@ -1,4 +1,6 @@
 <template>
+<div>
+    <h1>Lista Lavori</h1>
 
   <el-table
           :data="lavori"
@@ -33,6 +35,7 @@
             >
     </el-table-column>
   </el-table>
+</div>
 </template>
 
 <script>

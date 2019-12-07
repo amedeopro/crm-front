@@ -8,7 +8,6 @@
             </svg></router-link>
         </div>
         <el-menu
-                default-active="2"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
@@ -21,11 +20,11 @@
             </el-menu-item>
             <el-menu-item index="2">
                 <i class="el-icon-user"></i>
-                <span>Clienti</span>
+                <router-link to="/clienti"><span>Clienti</span></router-link>
             </el-menu-item>
             <el-menu-item index="3">
-                <i class="el-icon-setting"></i>
-                <span>Navigator Four</span>
+                <i class="el-icon-plus"></i>
+                <router-link to="/inseriscicliente"><span>Inserisci Cliente</span></router-link>
             </el-menu-item>
         </el-menu>
     </el-aside>
@@ -42,5 +41,9 @@
         background: #545c64;
         color: white;
         min-height: 100vh;
+    }
+    .routerlink{
+        color: white;
+        text-decoration: none;
     }
 </style>
