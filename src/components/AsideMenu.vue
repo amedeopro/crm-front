@@ -42,8 +42,12 @@
         color: white;
         min-height: 100vh;
     }
-    .routerlink{
+
+    .el-menu-item * {
+        vertical-align: middle;
         color: white;
         text-decoration: none;
     }
+
+
 </style>
