@@ -42,12 +42,14 @@
         methods: {
             inserisciLavoro() {
                 axios
-                    .post('http://127.0.0.1:8000/api/works', {params:{
+                    .post('http://127.0.0.1:8000/api/works', {
+                        params:{
                             work_type: this.work_type,
                             dead_line: this.dead_line,
                             finished: this.finished,
                             information: this.information,
-                        }})
+                        }
+                    })
                     .then(response => {
                         this.modalInserisciUtente = false
                         return response
