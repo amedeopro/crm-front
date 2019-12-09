@@ -22,10 +22,6 @@
                 <i class="el-icon-user"></i>
                 <router-link to="/clienti"><span>Clienti</span></router-link>
             </el-menu-item>
-            <el-menu-item index="3">
-                <i class="el-icon-plus"></i>
-                <router-link to="/inseriscicliente"><span>Inserisci Cliente</span></router-link>
-            </el-menu-item>
         </el-menu>
     </el-aside>
 </template>

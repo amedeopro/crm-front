@@ -2,7 +2,6 @@
 import Lavori from "./components/Lavori";
 import Dashboard from "./components/Dashboard";
 import ListaClienti from "./components/ListaClienti";
-import InserisciCliente from "./components/InserisciCliente";
 
 //Vue.use(VueRouter)
 
@@ -19,8 +18,5 @@ export const routes = [
             path: '/clienti',
             component: ListaClienti
         },
-        {
-            path: '/inserisciclienti',
-            component: InserisciCliente
-        }
+
 ]
