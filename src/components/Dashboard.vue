@@ -29,7 +29,7 @@
         </el-col>
         <el-col :span="6">
             <el-card :body-style="{ padding: '0px' }" >
-                <img src="../assets/Meditation-Man-Working.jpg" alt="" class="image">
+                <img src="../assets/users.jpg" alt="" class="image">
                 <div style="padding: 14px;">
                     <span>Numero di Clienti</span>
                     <div class="bottom clearfix">
