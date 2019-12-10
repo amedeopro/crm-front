@@ -2,7 +2,7 @@
 <template>
 <div>
     <h1>DASHBOARD</h1>
-    <el-row style="display: flex; justify-content: center">
+    <el-row style="display: flex; justify-content: center" :gutter="20">
         <el-col :span="6" >
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/Multitasking1.jpg" alt="" class="image">
@@ -64,7 +64,7 @@
         methods:{
             contaLavori(){
                 axios
-                    .get('http://127.0.0.1:8000/api/works/contalavori')
+                    .get('http://80.211.134.4/api/works/contalavori')
                     .then(response => {
                         this.NonSvolti = response.data.lavorinonterminati;
                         this.Svolti = response.data.lavoriterminati;
@@ -75,7 +75,7 @@
             },
             contaClienti(){
                 axios
-                    .get('http://127.0.0.1:8000/api/customers/contaclienti')
+                    .get('http://80.211.134.4/api/customers/contaclienti')
                     .then(response => {
                         this.numeroClienti = response.data;
                     })

@@ -1,69 +1,117 @@
 <template>
     <div>
-        <h1>Lista Clienti</h1>
-        <el-button type="primary" @click="modalInserisciUtente = true">Aggiungi Cliente</el-button>   
-        <el-dialog :visible.sync="modalInserisciUtente" append-to-body width="80%">
-            <el-form  label-width="100px" method="POST">
-                <el-form-item label="Tipo di lavoro">
-                    <el-input v-model="work_type"></el-input>
+        <el-row :gutter="10">
+            <h1>Lista Clienti</h1>
+        </el-row>
+
+        <el-row :gutter="10">
+            <el-button type="primary" @click="modalInserisciCliente = true">Aggiungi Cliente</el-button>
+        </el-row>
+
+        <el-dialog :visible.sync="modalInserisciCliente" append-to-body width="50%">
+            <el-form  label-width="160px" method="POST">
+                <el-form-item label="Azienda">
+                    <el-input v-model="company"></el-input>
                 </el-form-item>
-                <el-form-item label="Consegnare entro">
-                    <el-date-picker v-model="dead_line" type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="Seleziona una data"></el-date-picker>
+                <el-form-item label="Referente">
+                    <el-input v-model="ref_name"></el-input>
                 </el-form-item>
-                <el-form-item label="Il lavoro è stato terminato">
-                      <el-select v-model="finished" placeholder="Si o No?">
-                        <el-option
-                            label="Si"
-                            value="1">
-                        </el-option>
-                        <el-option
-                            label="No"
-                            value="0">
-                        </el-option>
-                        </el-select>
+                <el-form-item label="Numero di Telefono">
+                    <el-input v-model="phone"></el-input>
                 </el-form-item>
-                <el-form-item label="Informazioni">
-                    <el-input v-model="information" type="textarea" :rows="2"></el-input>
+                <el-form-item label="Indirizzo E-mail">
+                    <el-input v-model="mail"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="modalInserisciUtente = false">Annulla</el-button>
-                <el-button type="primary" @click="inserisciLavoro()">Salva</el-button>
+                <el-button @click="modalInserisciCliente = false">Annulla</el-button>
+                <el-button type="primary" @click="inserisciCliente()">Salva</el-button>
             </span>
         </el-dialog>
+
+        <el-row :gutter="10">
+            <el-table
+                    :data="clienti"
+                    style="width: 100%">
+                <el-table-column
+                        prop="company"
+                        label="Azienda"
+                        sortable
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="ref_name"
+                        label="Referente"
+                        sortable
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="phone"
+                        label="numero di telefono"
+                        sortable
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="mail"
+                        label="indirizzo e-mail"
+                        sortable
+                >
+                </el-table-column>
+            </el-table>
+        </el-row>
     </div>
               
 </template>
 <script>
+
     import axios from "axios";
 
     export default{
         name: 'ListaClienti',
         data(){
             return{
-                work_type: null,
-                dead_line: null,
-                finished: null,
-                information: null,
-                modalInserisciUtente: false,
+                clienti: [],
+                modalInserisciCliente: false,
+                company: null,
+                ref_name: null,
+                phone: null,
+                mail: null,
             }
         },
+        created(){
+          this.works()
+        },
         methods: {
-            inserisciLavoro() {
+            works(){
                 axios
-                    .post('http://80.211.134.4/api/works' + '?work_type=' + this.work_type + '&dead_line=' + this.dead_line + '&finished=' + this.finished + '&information=' + this.information, {})
+                    .get('http://80.211.134.4/api/customers')
                     .then(response => {
-                        this.modalInserisciUtente = false
-                        return response
+                        this.clienti = response.data;
                     })
-                .catch(error => {
-                    this.modalInserisciUtente = false
-                   return error
-                })
+                    .catch(error => {
+                        return error
+                    })
+            },
+            inserisciCliente() {
+                axios
+                    .post('http://80.211.134.4/api/customers' + '?ref_name=' + this.ref_name + '&company=' + this.company + '&phone=' + this.phone + '&mail=' + this.mail, {})
+                    .then(response => {
+                        this.modalInserisciCliente = false
+                        this.works()
+                        return response
+
+                    })
+                    .catch(error => {
+                        this.modalInserisciCliente = false
+                        this.works()
+                        return error
+                    })
             }
         }
     }
 </script>
 <style scoped>
-
+    .el-row {
+        margin-bottom: 20px;
+    }
 </style>
