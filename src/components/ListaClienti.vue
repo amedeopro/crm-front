@@ -11,7 +11,16 @@
                     <el-date-picker v-model="dead_line" type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="Seleziona una data"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="Il lavoro è stato terminato">
-                    <el-input v-model="finished"></el-input>
+                      <el-select v-model="finished" placeholder="Si o No?">
+                        <el-option
+                            label="Si"
+                            value="1">
+                        </el-option>
+                        <el-option
+                            label="No"
+                            value="0">
+                        </el-option>
+                        </el-select>
                 </el-form-item>
                 <el-form-item label="Informazioni">
                     <el-input v-model="information" type="textarea" :rows="2"></el-input>
