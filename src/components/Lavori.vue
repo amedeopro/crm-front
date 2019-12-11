@@ -26,6 +26,14 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="Il lavoro è stato terminato">
+                <el-select v-model="finished" placeholder="Si o No?" v-for="user in users" :key="user.id">
+                    <el-option
+                            :label="user.name"
+                            :value="user.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="Informazioni">
                 <el-input v-model="information" type="textarea" :rows="2"></el-input>
             </el-form-item>
@@ -87,10 +95,12 @@ export default {
         finished: null,
         information: null,
         modalInserisciLavoro: false,
+        users: []
     }
   },
   created(){
     this.works()
+    this.caricaUsers()
   },
   methods:{
     works(){
@@ -112,6 +122,16 @@ export default {
               })
               .catch(error => {
                   this.modalInserisciLavoro = false
+                  return error
+              })
+      },
+      caricaUsers(){
+          axios
+              .get('http://80.211.134.4/api/users')
+              .then(response => {
+                  this.users = response.data;
+              })
+              .catch(error => {
                   return error
               })
       }
