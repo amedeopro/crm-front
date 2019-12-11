@@ -8,6 +8,14 @@
     </el-row>
     <el-dialog :visible.sync="modalInserisciLavoro" append-to-body width="50%">
         <el-form  label-width="160px" method="POST">
+            <el-form-item label="Cliente">
+                <el-select v-model="clienteScelto" placeholder="Cliente per cui svolgere il lavoro" >
+                    <el-option v-for="cliente in clienti" :key="cliente.id"
+                               :label="cliente.company"
+                               :value="cliente.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="Tipo di lavoro">
                 <el-input v-model="work_type"></el-input>
             </el-form-item>
@@ -26,9 +34,9 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="Il lavoro è stato terminato">
-                <el-select v-model="finished" placeholder="Si o No?" v-for="user in users" :key="user.id">
-                    <el-option
+            <el-form-item label="A chi assegni il lavoro?">
+                <el-select v-model="utenteScelto" placeholder="Utente a cui assegnare il lavoro" >
+                    <el-option v-for="user in users" :key="user.id"
                             :label="user.name"
                             :value="user.id">
                     </el-option>
@@ -47,6 +55,12 @@
         <el-table
                 :data="lavori"
                 style="width: 100%">
+            <el-table-column
+                    prop="name"
+                    label="Lavoro assegnato a"
+                    sortable
+            >
+            </el-table-column>
             <el-table-column
                     prop="company"
                     label="Cliente"
@@ -95,12 +109,16 @@ export default {
         finished: null,
         information: null,
         modalInserisciLavoro: false,
-        users: []
+        clienteScelto: null,
+        clienti: [],
+        users: [],
+        utenteScelto: null
     }
   },
   created(){
     this.works()
     this.caricaUsers()
+    this.customers()
   },
   methods:{
     works(){
@@ -134,7 +152,17 @@ export default {
               .catch(error => {
                   return error
               })
-      }
+      },
+      customers(){
+          axios
+              .get('http://80.211.134.4/api/customers')
+              .then(response => {
+                  this.clienti = response.data;
+              })
+              .catch(error => {
+                  return error
+              })
+      },
   }
 }
 </script>

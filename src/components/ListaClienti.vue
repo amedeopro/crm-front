@@ -79,10 +79,10 @@
             }
         },
         created(){
-          this.works()
+          this.customers()
         },
         methods: {
-            works(){
+            customers(){
                 axios
                     .get('http://80.211.134.4/api/customers')
                     .then(response => {
