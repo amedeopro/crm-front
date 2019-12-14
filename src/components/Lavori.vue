@@ -6,7 +6,17 @@
     <el-row :gutter="10">
         <el-button type="primary" @click="modalInserisciLavoro = true">Aggiungi Lavoro</el-button>
     </el-row>
-    <el-dialog :visible.sync="modalInserisciLavoro" append-to-body width="50%">
+
+    <el-drawer
+            title="Aggiungi lavoro"
+            :visible.sync="modalInserisciLavoro"
+            direction="rtl"
+            custom-class="demo-drawer"
+            ref="drawer"
+            append-to-body
+            size="30%"
+    >
+    <div style="padding: 0 30px 0 30px">
         <el-form  label-width="160px" method="POST">
             <el-form-item label="Cliente">
                 <el-select v-model="clienteScelto" placeholder="Cliente per cui svolgere il lavoro" >
@@ -37,8 +47,8 @@
             <el-form-item label="A chi assegni il lavoro?">
                 <el-select v-model="utenteScelto" placeholder="Utente a cui assegnare il lavoro" >
                     <el-option v-for="user in users" :key="user.id"
-                            :label="user.name"
-                            :value="user.id">
+                               :label="user.name"
+                               :value="user.id">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -46,14 +56,16 @@
                 <el-input v-model="information" type="textarea" :rows="2"></el-input>
             </el-form-item>
         </el-form>
-        <span slot="footer" class="dialog-footer">
-                <el-button @click="modalInserisciLavoro = false">Annulla</el-button>
-                <el-button type="primary" @click="inserisciLavoro()">Salva</el-button>
-            </span>
-    </el-dialog>
+
+        <el-button @click="modalInserisciLavoro = false">Annulla</el-button>
+        <el-button type="primary" @click="inserisciLavoro()">Salva</el-button>
+    </div>
+
+    </el-drawer>
+
     <el-row :gutter="10">
         <el-table
-                :data="lavori"
+                :data="lavori.filter(data => !search || data.company.toLowerCase().includes(search.toLowerCase()))"
                 style="width: 100%">
             <el-table-column
                     prop="name"
@@ -90,6 +102,25 @@
                     label="Informazioni"
             >
             </el-table-column>
+            <el-table-column
+                    align="right">
+<!--                <template slot="header" slot-scope="scope">-->
+                <template slot="header">
+                    <el-input
+                            v-model="search"
+                            size="mini"
+                            placeholder="Ricerca"/>
+                </template>
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                </template>
+            </el-table-column>
         </el-table>
     </el-row>
 </div>
@@ -103,6 +134,7 @@ export default {
   name: 'Lavori',
   data(){
     return {
+        search: '',
         lavori: [],
         work_type: null,
         dead_line: null,
@@ -121,6 +153,14 @@ export default {
     this.customers()
   },
   methods:{
+      handleEdit(){
+          // eslint-disable-next-line no-undef
+        Console.log('modifica')
+      },
+      handleDelete: function () {
+          // eslint-disable-next-line no-undef
+          Console.log('chiudi')
+      },
     works(){
       axios
       .get('http://80.211.134.4/api/works')
@@ -136,6 +176,7 @@ export default {
               .post('http://80.211.134.4/api/works' + '?work_type=' + this.work_type + '&dead_line=' + this.dead_line + '&finished=' + this.finished + '&information=' + this.information + '&user_id=' + this.utenteScelto + '&customer_id=' + this.clienteScelto, {})
               .then(response => {
                   this.modalInserisciLavoro = false
+                  this.works()
                   return response
 
               })
