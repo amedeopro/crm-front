@@ -133,10 +133,11 @@ export default {
     },
       inserisciLavoro() {
           axios
-              .post('http://80.211.134.4/api/works' + '?work_type=' + this.work_type + '&dead_line=' + this.dead_line + '&finished=' + this.finished + '&information=' + this.information, {})
+              .post('http://80.211.134.4/api/works' + '?work_type=' + this.work_type + '&dead_line=' + this.dead_line + '&finished=' + this.finished + '&information=' + this.information + '&user_id=' + this.utenteScelto + '&customer_id=' + this.clienteScelto, {})
               .then(response => {
                   this.modalInserisciLavoro = false
                   return response
+
               })
               .catch(error => {
                   this.modalInserisciLavoro = false
