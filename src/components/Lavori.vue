@@ -137,7 +137,10 @@ export default {
         clienteScelto: null,
         clienti: [],
         users: [],
-        utenteScelto: null
+        utenteScelto: null,
+        modificaLavoro: {
+
+        }
     }
   },
   created(){
@@ -209,6 +212,17 @@ export default {
                   return error
               })
       },
+      modifyWork(id){
+          axios
+              .get('http://80.211.134.4/api/works/' + id )
+              .then(response => {
+                  this.works()
+                  return response
+              })
+              .catch(error => {
+                  return error
+              })
+      }
   }
 }
 </script>
