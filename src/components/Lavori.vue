@@ -118,7 +118,7 @@
                     <el-button
                             size="mini"
                             type="danger"
-                            @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                            @click="deleteWork(scope.row.id)">Delete</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -200,6 +200,17 @@ export default {
               .get('http://80.211.134.4/api/customers')
               .then(response => {
                   this.clienti = response.data;
+              })
+              .catch(error => {
+                  return error
+              })
+      },
+      deleteWork(id){
+          axios
+              .delete('http://80.211.134.4/api/works/' + id )
+              .then(response => {
+                  this.works()
+                  return response
               })
               .catch(error => {
                   return error
