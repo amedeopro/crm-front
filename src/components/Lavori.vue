@@ -92,7 +92,7 @@
       :key="work.id"
     >
       <div style="padding: 0 30px 0 30px">
-        <el-form label-width="160px" method="POST">
+        <el-form label-width="170px" method="POST">
           <el-row> il cliente è {{ work.company }} </el-row>
           <el-form-item label="Tipo di lavoro">
             <el-input v-model="work.work_type"></el-input>
@@ -108,14 +108,13 @@
           </el-form-item>
           <el-form-item label="Il lavoro è stato terminato">
             <el-select v-model="work.finished" placeholder="Si o No?">
-              <el-option label="Si" value="1"> </el-option>
+              <el-option label="Sì" value="1"></el-option>
               <el-option label="No" value="0"> </el-option>
             </el-select>
           </el-form-item>
-          <el-row> Attualemnte è assegnato a {{ work.name }} </el-row>
           <el-form-item label="A chi assegni il lavoro?">
             <el-select
-              v-model="utenteScelto"
+              v-model="work.name"
               placeholder="Utente a cui assegnare il lavoro"
             >
               <el-option
@@ -137,23 +136,12 @@
         </el-form>
 
         <el-button @click="modalModificaLavoro = false">Annulla</el-button>
-        <el-button type="primary" @click="modalModificaLavoro = false"
-          >Salva</el-button
-        >
+        <el-button type="primary" @click="updateWork(work.id)">Salva</el-button>
       </div>
     </el-drawer>
 
     <el-row :gutter="10">
-      <el-table
-        :data="
-          lavori.filter(
-            data =>
-              !search ||
-              data.company.toLowerCase().includes(search.toLowerCase())
-          )
-        "
-        style="width: 100%"
-      >
+      <el-table :data="lavori" style="width: 100%">
         <el-table-column prop="name" label="Lavoro assegnato a" sortable>
         </el-table-column>
         <el-table-column prop="company" label="Cliente" sortable>
@@ -174,7 +162,7 @@
             <el-button
               size="mini"
               type="danger"
-              @click="deleteWork(scope.row.id)"
+              @click="openConfirmDelete(scope.row.id)"
               >Delete</el-button
             >
           </template>
@@ -203,7 +191,8 @@ export default {
       clienti: [],
       users: [],
       utenteScelto: null,
-      modWork: []
+      modWork: [],
+      test: ""
     };
   },
   created() {
@@ -300,6 +289,44 @@ export default {
         .catch(error => {
           return error;
         });
+    },
+    updateWork(id) {
+      axios
+        .patch(
+          "http://80.211.134.4/api/works/" +
+            id +
+            "?work_type=" +
+            this.modWork[0].work_type +
+            "&dead_line=" +
+            this.modWork[0].dead_line +
+            "&finished=" +
+            this.modWork[0].finished +
+            "&information=" +
+            this.modWork[0].information +
+            "&user_id=" +
+            this.modWork[0].name,
+          {}
+        )
+        .then(response => {
+          this.modalModificaLavoro = false;
+          this.works();
+          return response;
+        })
+        .catch(error => {
+          this.modalModificaLavoro = false;
+          return error;
+        });
+    },
+    openConfirmDelete(id) {
+      this.$confirm("Sicuro di voler eliminare il lavoro ?", "Attenzione", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Annulla",
+        type: "warning"
+      })
+        .then(() => {
+          this.deleteWork(id);
+        })
+        .catch(() => {});
     }
   }
 };
