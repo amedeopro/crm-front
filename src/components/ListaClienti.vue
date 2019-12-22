@@ -57,6 +57,19 @@
                         sortable
                 >
                 </el-table-column>
+                <el-table-column align="right">
+                    <template slot-scope="scope">
+                        <el-button size="mini" @click="modifyCustomer(scope.row.id)"
+                        >Edit</el-button
+                        >
+                        <el-button
+                                size="mini"
+                                type="danger"
+                                @click="openConfirmDelete(scope.row.id)"
+                        >Delete</el-button
+                        >
+                    </template>
+                </el-table-column>
             </el-table>
         </el-row>
     </div>
@@ -76,6 +89,7 @@
                 ref_name: null,
                 phone: null,
                 mail: null,
+                modCustomer: []
             }
         },
         created(){
@@ -106,6 +120,40 @@
                         this.works()
                         return error
                     })
+            },
+            modifyCustomer(id) {
+                axios
+                    .get("http://80.211.134.4/api/customers/" + id)
+                    .then(response => {
+                        this.modCustomer = response.data;
+                        this.modalModificaLavoro = true;
+                        return response;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+            },
+            deleteCustomer(id) {
+                axios
+                    .delete("http://80.211.134.4/api/works/" + id)
+                    .then(response => {
+                        this.works();
+                        return response;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+            },
+            openConfirmDelete(id) {
+                this.$confirm("Sicuro di voler eliminare il cliente ?", "Attenzione", {
+                    confirmButtonText: "OK",
+                    cancelButtonText: "Annulla",
+                    type: "warning"
+                })
+                    .then(() => {
+                        this.deleteCustomer(id);
+                    })
+                    .catch(() => {});
             }
         }
     }

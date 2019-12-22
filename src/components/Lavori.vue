@@ -308,8 +308,8 @@ export default {
           {}
         )
         .then(response => {
-          this.modalModificaLavoro = false;
-          this.works();
+            this.works();
+            this.modalModificaLavoro = false;
           return response;
         })
         .catch(error => {
