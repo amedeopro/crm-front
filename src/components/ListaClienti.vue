@@ -104,7 +104,7 @@ export default {
   methods: {
     customers() {
       axios
-        .get("http://80.211.134.4/api/customers")
+        .get("customers")
         .then(response => {
           this.clienti = response.data;
         })
@@ -115,7 +115,7 @@ export default {
     inserisciCliente() {
       axios
         .post(
-          "http://80.211.134.4/api/customers" +
+          "customers" +
             "?ref_name=" +
             this.ref_name +
             "&company=" +
@@ -139,7 +139,7 @@ export default {
     },
     modifyCustomer(id) {
       axios
-        .get("http://80.211.134.4/api/customers/" + id)
+        .get("customers/" + id)
         .then(response => {
           this.modCustomer = response.data;
           this.modalModificaCliente = true;
@@ -152,7 +152,7 @@ export default {
     updateCustomers(id) {
       axios
         .patch(
-          "http://80.211.134.4/api/customers/" +
+          "customers/" +
             id +
             "?company=" +
             this.modCustomer.company +
@@ -176,7 +176,7 @@ export default {
     },
     deleteCustomer(id) {
       axios
-        .delete("http://80.211.134.4/api/customers/" + id)
+        .delete("customers/" + id)
         .then(response => {
           this.customers();
           return response;

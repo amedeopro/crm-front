@@ -12,7 +12,7 @@
               <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item align="right">
-              <el-button type="primary" @click="login()">Login</el-button>
+              <el-button type="primary" @click="signIn()">Login</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
+// import axios from "axios";
+import {mapActions} from 'vuex'
 export default {
   name: "Login",
   data() {
@@ -34,15 +34,11 @@ export default {
     };
   },
   methods: {
-    async login() {
-      axios
-        .post("http://80.211.134.4/api/auth/signin", this.form)
-        .then(response => {
-          return response;
-        })
-        .catch(error => {
-          return error;
-        });
+    ...mapActions({
+      login: 'auth/login'
+    }),
+    signIn(){
+      this.login(this.form)
     }
   }
 };

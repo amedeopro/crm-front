@@ -64,7 +64,7 @@
         methods:{
             contaLavori(){
                 axios
-                    .get('http://80.211.134.4/api/works/contalavori')
+                    .get('works/contalavori')
                     .then(response => {
                         this.NonSvolti = response.data.lavorinonterminati;
                         this.Svolti = response.data.lavoriterminati;
@@ -75,7 +75,7 @@
             },
             contaClienti(){
                 axios
-                    .get('http://80.211.134.4/api/customers/contaclienti')
+                    .get('customers/contaclienti')
                     .then(response => {
                         this.numeroClienti = response.data;
                     })

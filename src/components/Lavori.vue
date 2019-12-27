@@ -211,7 +211,7 @@ export default {
     },
     works() {
       axios
-        .get("http://80.211.134.4/api/works")
+        .get("works")
         .then(response => {
           this.lavori = response.data;
         })
@@ -222,7 +222,7 @@ export default {
     inserisciLavoro() {
       axios
         .post(
-          "http://80.211.134.4/api/works" +
+          "works" +
             "?work_type=" +
             this.work_type +
             "&dead_line=" +
@@ -249,7 +249,7 @@ export default {
     },
     caricaUsers() {
       axios
-        .get("http://80.211.134.4/api/users")
+        .get("users")
         .then(response => {
           this.users = response.data;
         })
@@ -259,7 +259,7 @@ export default {
     },
     customers() {
       axios
-        .get("http://80.211.134.4/api/customers")
+        .get("customers")
         .then(response => {
           this.clienti = response.data;
         })
@@ -269,7 +269,7 @@ export default {
     },
     deleteWork(id) {
       axios
-        .delete("http://80.211.134.4/api/works/" + id)
+        .delete("works/" + id)
         .then(response => {
           this.works();
           return response;
@@ -280,7 +280,7 @@ export default {
     },
     modifyWork(id) {
       axios
-        .get("http://80.211.134.4/api/works/" + id)
+        .get("works/" + id)
         .then(response => {
           this.modWork = response.data;
           this.modalModificaLavoro = true;
@@ -293,7 +293,7 @@ export default {
     updateWork(id) {
       axios
         .patch(
-          "http://80.211.134.4/api/works/" +
+          "works/" +
             id +
             "?work_type=" +
             this.modWork[0].work_type +
