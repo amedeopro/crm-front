@@ -5,14 +5,14 @@
         <el-card class="box-card">
           <h1>LOGIN</h1>
           <el-form>
-            <el-form-item label="Username">
-              <el-input v-model="username"></el-input>
+            <el-form-item label="E-mail">
+              <el-input v-model="form.email"></el-input>
             </el-form-item>
             <el-form-item label="Password">
-              <el-input type="password" v-model="password"></el-input>
+              <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item align="right">
-              <el-button type="primary" @click="onSubmit">Login</el-button>
+              <el-button type="primary" @click="login()">Login</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -21,13 +21,29 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: "Login",
   data() {
     return {
-      username: null,
-      password: null
+      form: {
+        email: null,
+        password: null
+      }
     };
+  },
+  methods: {
+    async login() {
+      axios
+        .post("http://80.211.134.4/api/auth/signin", this.form)
+        .then(response => {
+          return response;
+        })
+        .catch(error => {
+          return error;
+        });
+    }
   }
 };
 </script>
