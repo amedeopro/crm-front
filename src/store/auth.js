@@ -3,8 +3,8 @@ import axios from "axios";
 export default {
     namespaced: true,
     state:{
-        token: null,
-        user: null
+        token: '',
+        user: ''
     },
     mutations:{
         //
