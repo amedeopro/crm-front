@@ -12,7 +12,7 @@
               <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item align="right">
-              <el-button type="primary" @click="signIn()">Login</el-button>
+              <el-button type="primary" @click="signIn">Login</el-button>
             </el-form-item>
           </el-form>
         </el-card>
