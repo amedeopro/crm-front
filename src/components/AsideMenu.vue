@@ -1,7 +1,7 @@
 <template>
   <el-aside width="230px">
     <div class="logo-container">
-      <router-link to="/">
+      <router-link to="/dashboard">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
