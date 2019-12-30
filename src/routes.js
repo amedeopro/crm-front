@@ -17,7 +17,7 @@ export const routes = [
             component: Dashboard,
             name: 'dashboard',
             beforeEnter: (to, from, next) => {
-                if(store.getters['auth/authenticated']){
+                if(!store.getters['auth/authenticated']){
                     return next({
                         name: 'login'
                     })
@@ -31,11 +31,29 @@ export const routes = [
         },
         {
             path: '/lavori',
-            component: Lavori
+            component: Lavori,
+            name: 'lavori',
+            beforeEnter: (to, from, next) => {
+                if(!store.getters['auth/authenticated']){
+                    return next({
+                        name: 'login'
+                    })
+                }
+                next()
+            }
         },
         {
             path: '/clienti',
-            component: ListaClienti
+            component: ListaClienti,
+            name: 'clienti',
+            beforeEnter: (to, from, next) => {
+                if(!store.getters['auth/authenticated']){
+                    return next({
+                        name: 'login'
+                    })
+                }
+                next()
+            }
         },
 
 ]
