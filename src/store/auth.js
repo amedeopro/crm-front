@@ -6,6 +6,14 @@ export default {
         token: '',
         user: ''
     },
+    getters:{
+        authenticated(state){
+            return state.token && state.user
+        },
+        user(state){
+            return state.user
+        }
+    },
     mutations:{
         SET_TOKEN(state, token){
             state.token = token
