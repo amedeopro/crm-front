@@ -3,6 +3,7 @@ import Lavori from "./components/Lavori";
 import Dashboard from "./components/Dashboard";
 import ListaClienti from "./components/ListaClienti";
 import Login from "./components/Login";
+import {store} from "@/store/store";
 //Vue.use(VueRouter)
 
 export const routes = [
@@ -14,7 +15,11 @@ export const routes = [
         {
             path: '/dashboard',
             component: Dashboard,
-            name: 'dashboard'
+            name: 'dashboard',
+            beforeEnter: (to, from, next) => {
+                console.log(store.getters)
+                next()
+            }
         },
         {
             path: '/login',
