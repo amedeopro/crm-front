@@ -22,7 +22,8 @@
 </template>
 <script>
 // import axios from "axios";
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   data() {
@@ -35,10 +36,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'auth/login'
+      login: "auth/login"
     }),
-    signIn(){
-      this.login(this.form)
+    signIn() {
+      this.login(this.form);
     }
   }
 };
