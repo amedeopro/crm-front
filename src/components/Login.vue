@@ -39,7 +39,11 @@ export default {
       login: "auth/login"
     }),
     signIn() {
-      this.login(this.form);
+      this.login(this.form).then(() => {
+        this.$router.replace({
+          name: "dashboard"
+        });
+      });
     }
   }
 };
