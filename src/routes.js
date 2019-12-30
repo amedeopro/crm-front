@@ -8,7 +8,13 @@ import Login from "./components/Login";
 export const routes = [
         {
             path: '/',
-            component: Dashboard
+            component: Login,
+            name: 'login'
+        },
+        {
+            path: '/dashboard',
+            component: Dashboard,
+            name: 'dashboard'
         },
         {
             path: '/login',
