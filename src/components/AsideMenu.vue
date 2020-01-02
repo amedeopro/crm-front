@@ -40,7 +40,7 @@
           <router-link to="/clienti"><span>Clienti</span></router-link>
         </el-menu-item>
         <el-menu-item index="3" @click="signOut()">
-          <i class="el-icon-user"></i>
+          <i class="el-icon-right"></i>
           <span>LogOut</span>
         </el-menu-item>
       </el-menu>
