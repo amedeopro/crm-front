@@ -148,12 +148,12 @@
         </el-table-column>
         <el-table-column prop="work_type" label="Tipo di Lavoro" sortable>
         </el-table-column>
-        <el-table-column prop="dead_line" label="Terminare entro il" sortable>
-        </el-table-column>
-        <el-table-column prop="finished" label="E' stato terminato ?" sortable>
-        </el-table-column>
-        <el-table-column prop="information" label="Informazioni">
-        </el-table-column>
+        <!-- <el-table-column prop="dead_line" label="Terminare entro il" sortable>
+        </el-table-column> -->
+        <!-- <el-table-column prop="finished" label="E' stato terminato ?" sortable>
+        </el-table-column> -->
+        <!-- <el-table-column prop="information" label="Informazioni">
+        </el-table-column> -->
         <el-table-column align="right">
           <template slot-scope="scope">
             <el-tooltip
@@ -162,7 +162,11 @@
               content="Vedi dettagli"
               placement="top"
             >
-              <el-button circle icon="el-icon-search"></el-button>
+              <el-button
+                @click="viewDetails(scope.row.id)"
+                circle
+                icon="el-icon-search"
+              ></el-button>
             </el-tooltip>
             <el-tooltip
               class="item"
@@ -194,6 +198,21 @@
         </el-table-column>
       </el-table>
     </el-row>
+    <el-dialog
+      width="60%"
+      title="Dettagli lavoro"
+      :visible.sync="modalDetail"
+      append-to-body
+      v-for="work in modWork"
+      :key="work.id"
+    >
+      <div class="dettagliLavoro">
+        <p><strong>Il lavoro deve essere consegnato entro il:</strong></p>
+        <p>{{ work.dead_line }}</p>
+        <p><strong>Dettagli sul lavoro da svolgere:</strong></p>
+        <p>{{ work.information }}</p>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -217,7 +236,8 @@ export default {
       users: [],
       utenteScelto: null,
       modWork: [],
-      test: ""
+      test: "",
+      modalDetail: false
     };
   },
   created() {
@@ -352,6 +372,19 @@ export default {
           this.deleteWork(id);
         })
         .catch(() => {});
+    },
+    viewDetails(id) {
+      // devo creare un servzio per il solo show dei dati e non riutilizzare quello per la modifica
+      axios
+        .get("works/" + id)
+        .then(response => {
+          this.modWork = response.data;
+          this.modalDetail = true;
+          return response;
+        })
+        .catch(error => {
+          return error;
+        });
     }
   }
 };
@@ -360,5 +393,8 @@ export default {
 <style scoped>
 .el-row {
   margin-bottom: 20px;
+}
+.dettagliLavoro p {
+  font-size: 25px;
 }
 </style>
