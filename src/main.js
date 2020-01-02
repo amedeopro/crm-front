@@ -7,6 +7,8 @@ import { routes } from './routes.js';
 import axios from 'axios';
 import { store } from './store/store';
 import Vuex from 'vuex';
+import Chartkick from 'vue-chartkick';
+import Chart from 'chart.js'
 
 require('./store/subscriber');
 
@@ -19,6 +21,7 @@ import VueRouter from 'vue-router'
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.use(Chartkick.use(Chart))
 
 const router = new VueRouter({
   routes,
