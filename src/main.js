@@ -12,6 +12,8 @@ require('./store/subscriber');
 
 axios.defaults.baseURL = 'http://80.211.134.4/api'
 
+
+
 import VueRouter from 'vue-router'
 
 Vue.use(ElementUI);
@@ -27,8 +29,12 @@ const router = new VueRouter({
 
 Vue.config.productionTip = false
 
-new Vue({
-  render: h => h(App),
-  router,
-  store,
-}).$mount('#app')
+store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
+  new Vue({
+    render: h => h(App),
+    router,
+    store,
+  }).$mount('#app')
+})
+
+
