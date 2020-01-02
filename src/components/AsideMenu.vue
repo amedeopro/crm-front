@@ -39,7 +39,7 @@
           <i class="el-icon-user"></i>
           <router-link to="/clienti"><span>Clienti</span></router-link>
         </el-menu-item>
-        <el-menu-item index="3" @click.prevent="signOut()">
+        <el-menu-item index="3" @click="signOut()">
           <i class="el-icon-user"></i>
           <span>LogOut</span>
         </el-menu-item>
