@@ -39,13 +39,17 @@
           <i class="el-icon-user"></i>
           <router-link to="/clienti"><span>Clienti</span></router-link>
         </el-menu-item>
+        <el-menu-item index="3" @click.prevent="signOut()">
+          <i class="el-icon-user"></i>
+          <span>LogOut</span>
+        </el-menu-item>
       </el-menu>
     </div>
   </el-aside>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "AsideMenu",
@@ -54,6 +58,18 @@ export default {
       authenticated: "auth/authenticated",
       user: "auth/user"
     })
+  },
+  methods: {
+    ...mapActions({
+      signOutAction: "auth/signOut"
+    }),
+    signOut() {
+      this.signOutAction().then(() => {
+        this.$router.replace({
+          name: "login"
+        });
+      });
+    }
   }
 };
 </script>
