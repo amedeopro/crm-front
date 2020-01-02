@@ -156,15 +156,40 @@
         </el-table-column>
         <el-table-column align="right">
           <template slot-scope="scope">
-            <el-button size="mini" @click="modifyWork(scope.row.id)"
-              >Edit</el-button
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Vedi dettagli"
+              placement="top"
             >
-            <el-button
-              size="mini"
-              type="danger"
-              @click="openConfirmDelete(scope.row.id)"
-              >Delete</el-button
+              <el-button circle icon="el-icon-search"></el-button>
+            </el-tooltip>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Modifica"
+              placement="top"
             >
+              <el-button
+                type="primary"
+                circle
+                icon="el-icon-edit"
+                @click="modifyWork(scope.row.id)"
+              ></el-button>
+            </el-tooltip>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Elimina"
+              placement="top"
+            >
+              <el-button
+                type="danger"
+                circle
+                icon="el-icon-delete"
+                @click="openConfirmDelete(scope.row.id)"
+              ></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -308,8 +333,8 @@ export default {
           {}
         )
         .then(response => {
-            this.works();
-            this.modalModificaLavoro = false;
+          this.works();
+          this.modalModificaLavoro = false;
           return response;
         })
         .catch(error => {
