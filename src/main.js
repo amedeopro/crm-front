@@ -12,7 +12,7 @@ import Chart from 'chart.js'
 
 require('./store/subscriber');
 
-axios.defaults.baseURL = 'http://80.211.134.4/api'
+axios.defaults.baseURL = 'https://80.211.134.4/api'
 
 
 
